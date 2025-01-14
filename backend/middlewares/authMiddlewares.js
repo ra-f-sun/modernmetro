@@ -3,7 +3,6 @@ import User from "../models/userModel.js";
 import asyncHandler from "./asyncHandler.js";
 
 //Authenticating user
-
 const authenticate = asyncHandler(async (req, res, next) => {
   let token;
   token = req.cookies.jwt;
@@ -24,7 +23,6 @@ const authenticate = asyncHandler(async (req, res, next) => {
 });
 
 //Checking for admin
-
 const authorizeAdmin = (req, res, next) => {
   if (req.user && req.user.isAdmin) {
     next();

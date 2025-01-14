@@ -1,5 +1,6 @@
 import { mongoose } from "mongoose";
 
+//Hpw the user should look like
 const userSchema = mongoose.Schema(
   {
     username: {
