@@ -1,7 +1,9 @@
 import asyncHandler from "../middlewares/asyncHandler.js";
 import User from "../models/userModel.js";
 import bcrypt from "bcryptjs";
+import createToken from "../utils/createToken.js";
 
+//User validation
 const createUser = asyncHandler(async (req, res) => {
   const { username, email, password } = req.body;
   if (!username || !email || !password) {
@@ -20,6 +22,8 @@ const createUser = asyncHandler(async (req, res) => {
 
   try {
     await newUser.save();
+    createToken(res, newUser._id);
+
     res.status(201).json({
       _id: newUser._id,
       username: newUser.username,
@@ -32,4 +36,51 @@ const createUser = asyncHandler(async (req, res) => {
   }
 });
 
-export { createUser };
+//Login section
+
+const loginUser = asyncHandler(async (req, res) => {
+  const { email, password } = req.body;
+  const existingUser = await User.findOne({ email });
+
+  if (existingUser) {
+    const isPasswordValid = await bcrypt.compare(
+      password,
+      existingUser.password
+    );
+
+    if (isPasswordValid) {
+      createToken(res, existingUser._id);
+      res.status(201).json({
+        message: "Logged in successfully",
+        _id: existingUser._id,
+        username: existingUser.username,
+        email: existingUser.email,
+        isAdmin: existingUser.isAdmin,
+      });
+      return;
+    } else {
+      res.send({ message: "Password is not valid" });
+    }
+  } else {
+    res.send({ message: "email not found" });
+  }
+});
+
+//logout section
+
+const logoutCurrentUser = asyncHandler(async (req, res) => {
+  res.cookie("jwt", "", {
+    httpOnly: true,
+    expires: new Date(0),
+  });
+
+  res.status(200).json({ message: "Logged Out successfully" });
+});
+
+//getting all user
+
+const getAllUsers = asyncHandler(async (req, res) => {
+  const users = await User.find({});
+  res.send(users);
+});
+export { createUser, loginUser, logoutCurrentUser, getAllUsers };
