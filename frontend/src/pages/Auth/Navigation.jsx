@@ -51,23 +51,23 @@ const Navigation = () => {
       style={{ zIndex: 999 }}
       className={`${
         showSidebar ? "hidden" : "flex"
-      } xl:flex lg:flex md:hidden sm:hidden flex-col justify-between p-4 text-white bg-black w-[6%] hover:w-[15%] h-[100vh]`}
+      } xl:flex lg:flex md:hidden sm:hidden flex-col justify-between p-4 text-white bg-black w-[6%] hover:w-[15%] h-[100vh] `}
       id="navigation-container"
     >
       <div className="flex flex-col justify-center space-y-4">
         <Link
           to="/"
-          className="flex items-center transition-transform transform hover:translate-x-2"
+          className="flex items-center transition-transform hover:translate-x-2"
         >
-          <AiOutlineHome className="mr-2 mt-[3rem]" size={26} />
-          <span className="hidden nav-item-name mt-[3rem]">HOME</span>
+          <AiOutlineHome className="mr-2 mt-12" size={26} />
+          <span className="hidden nav-item-name mt-12">HOME</span>
         </Link>
         <Link
           to="/shop"
           className="flex items-center transition-transform transform hover:translate-x-2"
         >
-          <AiOutlineShopping className="mr-2 mt-[3rem]" size={26} />
-          <span className="hidden nav-item-name mt-[3rem]">SHOP</span>
+          <AiOutlineShopping className="mr-2 mt-12" size={26} />
+          <span className="hidden nav-item-name mt-12">SHOP</span>
         </Link>
         <Link
           to="/cart"

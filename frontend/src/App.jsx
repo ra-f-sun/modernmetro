@@ -8,10 +8,15 @@ function App() {
   return (
     <>
       <ToastContainer />
-      <Navigation />
-      <main className="py-3">
-        <Outlet />
-      </main>
+      {/* Flex container for navigation and main content */}
+      <div className="flex h-screen">
+        {/* Navigation bar */}
+        <Navigation />
+        {/* Main content */}
+        <main className="flex-grow bg-gray-900 p-6 overflow-y-auto ">
+          <Outlet />
+        </main>
+      </div>
     </>
   );
 }
